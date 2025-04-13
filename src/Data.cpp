@@ -1,6 +1,7 @@
 #include "../include/Data.h"
 #include <string>
 #include <iostream>
+#include <cmath>
 
 Data::Data(int y, int x){ 
     v.resize(y, std::vector<float>(x, 0.0f)); 
@@ -92,6 +93,14 @@ Data operator - (const Data& a, const float& b){
     Data ret(a.y, a.x);
     for(int i = 0;i < a.y;i++){
         for(int j = 0;j < a.x;j++) ret.v[i][j] = a.v[i][j] - b;
+    }
+    return ret;
+}
+
+Data operator + (const Data& a, const Data& b){
+    Data ret(a.y, a.x);
+    for(int i = 0;i < a.y;i++){
+        for(int j = 0;j < b.x;j++) ret.v[i][j] = a.v[i][j] + b.v[i][j];
     }
     return ret;
 }

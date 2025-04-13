@@ -19,8 +19,11 @@ public:
 
 Data operator * (const Data& a, const Data& b);
 Data operator * (const float& a, const Data& b);
+
 Data operator - (const float& a, const Data& b);
 Data operator - (const Data& a, const float& b);
 Data operator - (const Data& a, const Data& b);
+
 Data operator + (const Data& a, const float& b);
+Data operator + (const Data& a, const Data& b);
 Data operator + (const Data& a, const Data& b);

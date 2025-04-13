@@ -12,7 +12,7 @@ float Logistic_Regression::Sigmoid(float& z){
     return (1.0f / (1.0f + std::exp(-z)));
 }
 
-Data Logistic_Regression::Sigmoid(Data& z){
+Data Logistic_Regression::Sigmoid(Data z){
     Data ret(z.y, z.x);
     for(int i = 0;i < z.y;i++){
         for(int j = 0;j < z.x;j++) ret.v[i][j] = Sigmoid(z.v[i][j]);
