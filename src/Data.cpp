@@ -1,4 +1,6 @@
 #include "../include/Data.h"
+#include <string>
+#include <iostream>
 
 Data::Data(int y, int x){ 
     v.resize(y, std::vector<float>(x, 0.0f)); 
