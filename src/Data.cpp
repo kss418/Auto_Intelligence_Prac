@@ -1,4 +1,4 @@
-#include "Data.h"
+#include "../include/Data.h"
 
 Data::Data(int y, int x){ 
     v.resize(y, std::vector<float>(x, 0.0f)); 

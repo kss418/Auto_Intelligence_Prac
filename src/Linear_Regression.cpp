@@ -1,7 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <string>
-#include "Data.h"
+#include "../include/Data.h"
  
 std::vector <float> losses;
 class Linear_Regression{
