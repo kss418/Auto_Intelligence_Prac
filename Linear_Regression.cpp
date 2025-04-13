@@ -8,16 +8,15 @@ public:
 
     Data(){}
     Data(int y, int x){ 
-        v.resize(y, std::vector<float>(x)); 
+        v.resize(y, std::vector<float>(x, 0.0f)); 
         this->y = y; this->x = x;
     }
 
     Data Transpose(){
-        Data ret(y, x);
+        Data ret(x, y);
         for(int i = 0;i < x;i++){
             for(int j = 0;j < y;j++) ret.v[i][j] = v[j][i];
         }
-
         return ret;
     }
 
@@ -32,7 +31,7 @@ public:
     static Data Zeros(int y, int x){
         Data ret(y, x);
         for(auto& i : ret.v){
-            for(auto& j : i) j = 1;
+            for(auto& j : i) j = 0;
         }
         return ret;
     }
@@ -45,61 +44,86 @@ public:
         }
         return ret;
     }
+    
+    static float sum(Data& a){
+        float ret = 0;
+        for(auto& i : a.v){
+            for(auto& j : i) ret += j;
+        }
+        return ret;
+    }
 };
 
 Data operator * (const Data& a, const Data& b){
+    if (a.x != b.y) {
+        throw std::runtime_error("Matrix dimension mismatch in operator*");
+    }
+
     Data ret(a.y, b.x);
     for(int i = 0;i < a.y;i++){
         for(int j = 0;j < b.x;j++){
             for(int k = 0;k < a.x;k++) ret.v[i][j] += a.v[i][k] * b.v[k][j];
         }
     }
+    return ret;
+}
 
+Data operator * (const float& a, const Data& b){
+    Data ret(b.y, b.x);
+    for(int i = 0;i < b.y;i++){
+        for(int j = 0;j < b.x;j++) ret.v[i][j] = a * b.v[i][j];
+    }
+    return ret;
+}
+
+Data operator - (const Data& a, const Data& b){
+    Data ret(a.y, a.x);
+    for(int i = 0;i < a.y;i++){
+        for(int j = 0;j < b.x;j++) ret.v[i][j] = a.v[i][j] - b.v[i][j];
+    }
     return ret;
 }
  
-
+std::vector <float> losses;
 class Linear_Regression{
 public:
     Data weight;
 
     Linear_Regression(){
-        weight.v.resize(5, std::vector<float>(5));
+        weight = Data(1, 1);
     }
 
-    float F(float w, float x){
-        return w * x;
-    }
-
-    float Get_Error(float w, float x, float y){
-        float ret = F(w, x) - y;
-        return ret * ret;
-    }
-
-    float Get_Error(Data& data, Data& weight){
-
-    }
-
-    void Fit(Data& data, int loop = 1000){
-        while(loop--){
-            float error = Get_Error(data, weight);
-            
+    float Get_Error(Data& pred, Data& data){
+        Data diff = pred - data;
+        float sum = 0;
+        for(auto& i : diff.v){
+            for(auto& j : i) sum += j * j;
         }
+        return sum / (2 * pred.y);
+    }
 
+    void Fit(Data& x, Data& y, float learning_rate = 0.01, int loop = 20){
+        while(loop--){
+            Data y_hat = x * weight;
+            float loss = Get_Error(y_hat, y);
+            
+            Data gradients = (1.0f / y.y) * x.Transpose() * (y_hat - y);
+            weight = weight - (learning_rate * gradients);
+
+            losses.push_back(loss);
+        }
     }
 };
 
 
 int main(){
-    Data a(2, 2), b(2, 2);
-    a.v = {{5, 3}, {2, 4}};
-    b.v = {{2, 3}, {3, 4}};
+    Data a(8, 1), b(8, 1);
+    a.v = {{1}, {2}, {3}, {4}, {5}, {6}, {7}, {8}};
+    b.v = {{2}, {5}, {9}, {12}, {14}, {17}, {21}, {23}};
 
-    Data c = Data::Concatenate(a, b);
-    for(auto& i : c.v){
-        for(auto& j : i) std::cout << j << " ";
-        std::cout << "\n";
-    }
-
+    Linear_Regression model;
+    model.Fit(a, b);
+    
+    for(auto& i : losses) std::cout << i << " ";
     return 0;
 }
