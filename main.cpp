@@ -1,6 +1,7 @@
 #include <iostream>
 #include "include/Data.h"
 #include "include/Linear_Regression.h"
+#include "include/Logistic_Regression.h"
 
 int main(){
     Data a(8, 1), b(8, 1);
