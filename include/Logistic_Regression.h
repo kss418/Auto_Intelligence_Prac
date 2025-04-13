@@ -6,7 +6,7 @@ public:
     Data weight;
     std::vector <float> losses;
 
-    Logistic_Regression();
+    Logistic_Regression(int y);
     float Sigmoid(float& z);
     Data Sigmoid(Data z);
     float Get_Error(Data& pred, Data& data);

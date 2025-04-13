@@ -4,8 +4,8 @@
 #include <cmath>
 #include "../include/Logistic_Regression.h"
     
-Logistic_Regression::Logistic_Regression(){
-    weight = Data(1, 1);
+Logistic_Regression::Logistic_Regression(int y){
+    weight = Data(y, 1);
 }
 
 float Logistic_Regression::Sigmoid(float& z){
@@ -22,7 +22,7 @@ Data Logistic_Regression::Sigmoid(Data z){
     
 float Logistic_Regression::Get_Error(Data& pred, Data& data){
     float eps = 1e-8;
-    return (-1.0 / pred.y) * Data::Sum(data * Data::Log(pred + eps) + (1 - data) * Data::Log(1 - pred + eps));
+    return (-1.0 / pred.y) * Data::Sum(data.Transpose() * Data::Log(pred + eps) + (1 - data).Transpose() * Data::Log(1 - pred + eps));
 }
     
 void Logistic_Regression::Fit(Data& x, Data& y, float learning_rate, int loop){

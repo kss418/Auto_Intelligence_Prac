@@ -51,8 +51,8 @@ float Data::Sum(const Data& a){
 
 Data operator * (const Data& a, const Data& b){
     if (a.x != b.y) {
-        throw std::runtime_error("A is" + std::to_string(a.y) + " * " + std::to_string(a.x) +
-            "B is " + std::to_string(b.y) + " * " + std::to_string(b.x)
+        throw std::runtime_error("A is " + std::to_string(a.y) + " * " + std::to_string(a.x) +
+            " B is " + std::to_string(b.y) + " * " + std::to_string(b.x)
         );
     }
 
