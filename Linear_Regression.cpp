@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <string>
 
 class Data{
 public:
@@ -56,7 +57,9 @@ public:
 
 Data operator * (const Data& a, const Data& b){
     if (a.x != b.y) {
-        throw std::runtime_error("Matrix dimension mismatch in operator*");
+        throw std::runtime_error("A is" + std::to_string(a.y) + " * " + std::to_string(a.x) +
+            "B is " + std::to_string(b.y) + " * " + std::to_string(b.x)
+        );
     }
 
     Data ret(a.y, b.x);
