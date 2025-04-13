@@ -7,6 +7,7 @@ public:
     std::vector <float> losses;
 
     Logistic_Regression();
+    float Sigmoid(float& z);
     Data Sigmoid(Data& z);
     float Get_Error(Data& pred, Data& data);
     void Fit(Data& x, Data& y, float learning_rate = 0.01, int loop = 20);

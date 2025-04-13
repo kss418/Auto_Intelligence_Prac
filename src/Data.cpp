@@ -31,7 +31,7 @@ Data Data::Zeros(int y, int x){
     return ret;
 }
 
-Data Data::Concatenate(Data& a, Data& b){
+Data Data::Concatenate(const Data& a, const Data& b){
     Data ret(a.y, a.x + b.x);
     for(int i = 0;i < a.y;i++){
         for(int j = 0;j < a.x;j++) ret.v[i][j] = a.v[i][j];
@@ -40,7 +40,7 @@ Data Data::Concatenate(Data& a, Data& b){
     return ret;
 }
     
-float Data::sum(Data& a){
+float Data::Sum(const Data& a){
     float ret = 0;
     for(auto& i : a.v){
         for(auto& j : i) ret += j;
@@ -76,6 +76,46 @@ Data operator - (const Data& a, const Data& b){
     Data ret(a.y, a.x);
     for(int i = 0;i < a.y;i++){
         for(int j = 0;j < b.x;j++) ret.v[i][j] = a.v[i][j] - b.v[i][j];
+    }
+    return ret;
+}
+
+Data operator - (const float& a, const Data& b){
+    Data ret(b.y, b.x);
+    for(int i = 0;i < b.y;i++){
+        for(int j = 0;j < b.x;j++) ret.v[i][j] = a - b.v[i][j];
+    }
+    return ret;
+}
+
+Data operator - (const Data& a, const float& b){
+    Data ret(a.y, a.x);
+    for(int i = 0;i < a.y;i++){
+        for(int j = 0;j < a.x;j++) ret.v[i][j] = a.v[i][j] - b;
+    }
+    return ret;
+}
+
+Data operator + (const float& a, const Data& b){
+    Data ret(b.y, b.x);
+    for(int i = 0;i < b.y;i++){
+        for(int j = 0;j < b.x;j++) ret.v[i][j] = a + b.v[i][j];
+    }
+    return ret;
+}
+
+Data operator + (const Data& a, const float& b){
+    Data ret(a.y, a.x);
+    for(int i = 0;i < a.y;i++){
+        for(int j = 0;j < a.x;j++) ret.v[i][j] = a.v[i][j] + b;
+    }
+    return ret;
+}
+
+Data Data::Log(const Data& a){
+    Data ret(a.y, a.x);
+    for(int i = 0;i < a.y;i++){
+        for(int j = 0;j < a.x;j++) ret.v[i][j] = std::log(a.v[i][j]);
     }
     return ret;
 }
