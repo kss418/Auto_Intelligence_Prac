@@ -107,7 +107,7 @@ void K_Means_Clustering::Fit(const Data& x, int loop) {
     while(loop--){
         changed = 0;
         for(auto& cluster : clusters) cluster.clear();
-        
+
         Get_Closest_Cluster(x);
         Get_Labels(x);
         Get_New_Centroid(x);
@@ -115,4 +115,19 @@ void K_Means_Clustering::Fit(const Data& x, int loop) {
         losses.push_back(Get_Error(x));
         if(!changed) break;
     }
+}
+
+Data K_Means_Clustering::Predict(const Data& x){
+    if(centroids.empty()) return Data(0, 0);
+
+    float min_dist = Distance(x, centroids[0]);
+    int best_cluster = 0;
+
+    for(size_t i = 1;i < k;i++){
+        float dist = Distance(x, centroids[i]);
+        if(dist >= min_dist) continue;
+        min_dist = dist; best_cluster = i;
+    }
+
+    return centroids[best_cluster];
 }

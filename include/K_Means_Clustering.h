@@ -15,8 +15,9 @@ public:
     void Get_Closest_Cluster(const Data& x);
     void Get_Labels(const Data& x);
     void Get_New_Centroid(const Data& x);
-    
+
     void Fit(const Data& x, int loop = 20);
+    Data Predict(const Data& x);
 private:
     size_t k;
     bool changed = 0;
