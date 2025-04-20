@@ -7,7 +7,7 @@ K_Means_Clustering::K_Means_Clustering(size_t k) : k(k), key(rd()), random(0, 0)
 float K_Means_Clustering::Distance(const Data& a, const Data& b) {
     float ret = 0;
     for (size_t i = 0; i < a.x; i++) { 
-        double diff = a.v[0][i] - b.v[0][i];
+        float diff = a.v[0][i] - b.v[0][i];
         ret += diff * diff;
     }
     return ret;
