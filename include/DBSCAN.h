@@ -1,16 +1,16 @@
+#pragma once
 #include "Data.h"
 
 class DBSCAN{
 public:
     DBSCAN(int min_count, float eps);
-    float Get_Error(const Data& x);
-    float Distance(const Data& a, const Data& b);
+    float Silhouette_Score(const Data& x);
+    float Distance(const std::vector<float>& a, const std::vector<float>& b);
     void Fit(const Data& x);
 private:
-    std::vector<Data> centroids;
     std::vector<int> labels;
     std::vector<std::vector<Data>> clusters;
-    
-    int min_count;
+
+    int min_count, cluster_count = 0;
     float eps;
 };

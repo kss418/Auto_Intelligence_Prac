@@ -10,7 +10,7 @@ float K_Means_Clustering::Distance(const Data& a, const Data& b) {
         float diff = a.v[0][i] - b.v[0][i];
         ret += diff * diff;
     }
-    return ret;
+    return std::sqrt(ret);
 }
 
 Data K_Means_Clustering::Get_Centroid(const Data& a) {
