@@ -38,7 +38,7 @@ float K_Means_Clustering::Get_Error(const Data& x){
         int cluster_id = labels[i];
         ret += Distance(now, centroids[cluster_id]);
     }
-    return ret;
+    return std::sqrt(ret);
 }
 
 void K_Means_Clustering::Get_Random_Centroid(const Data& x){
