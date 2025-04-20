@@ -4,7 +4,7 @@
 #include <cmath>
 #include "../include/Logistic_Regression.h"
     
-Logistic_Regression::Logistic_Regression(int y){
+Logistic_Regression::Logistic_Regression(int theta_size){
     weight = Data(y, 1);
 }
 

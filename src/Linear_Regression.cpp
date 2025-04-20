@@ -3,8 +3,8 @@
 #include <string>
 #include "../include/Linear_Regression.h"
     
-Linear_Regression::Linear_Regression(int y){
-    weight = Data(y, 1);
+Linear_Regression::Linear_Regression(int theta_size){
+    weight = Data(theta_size, 1);
 }
     
 float Linear_Regression::Get_Error(Data& pred, Data& data){
