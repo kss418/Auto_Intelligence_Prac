@@ -5,7 +5,7 @@
 #include "../include/Logistic_Regression.h"
     
 Logistic_Regression::Logistic_Regression(int theta_size){
-    weight = Data(y, 1);
+    weight = Data(theta_size, 1);
 }
 
 float Logistic_Regression::Sigmoid(float& z){
