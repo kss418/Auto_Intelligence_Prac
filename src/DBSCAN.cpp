@@ -12,11 +12,11 @@ float DBSCAN::Distance(const std::vector<float>& a, const std::vector<float>& b)
 }
 
 void DBSCAN::Fit(const Data& x){
-    labels.resize(x.x, -1);
-    for(size_t i = 0;i < x.x;i++){
+    labels.resize(x.y, -1);
+    for(size_t i = 0;i < x.y;i++){
         if(labels[i] != -1) continue;
         std::vector <int> neighbors;
-        for(size_t j = 0;j < x.x;j++){
+        for(size_t j = 0;j < x.y;j++){
             if(Distance(x.v[i], x.v[j]) > eps) continue;
             neighbors.push_back(j);
         }
@@ -30,9 +30,9 @@ void DBSCAN::Fit(const Data& x){
             if(labels[num] != -1){ index++; continue; }
             labels[num] = cluster_count;
 
-            for(int j = 0;j < x.x;j++){
+            for(int j = 0;j < x.y;j++){
                 if(labels[j] != -1) continue;
-                if(Distance(x.v[i], x.v[j]) > eps) continue;
+                if(Distance(x.v[num], x.v[j]) > eps) continue;
                 neighbors.push_back(j);
             }
             index++;

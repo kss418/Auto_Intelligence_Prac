@@ -1,5 +1,8 @@
 #pragma once
 #include <vector>
+#include <cmath>
+#include <string>
+#include <iostream>
 
 class Data{
 public:
